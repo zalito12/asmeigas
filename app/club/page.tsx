@@ -1,4 +1,4 @@
 
 export default function ClubPage() {
-  return (<>O Clube</>)
+  return (<>O clube</>)
 }

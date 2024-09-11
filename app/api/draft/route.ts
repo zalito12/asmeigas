@@ -1,4 +1,4 @@
-import { getHomePage } from "@/lib/api";
+import { getHomePage } from "@/lib/contentful/api";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 

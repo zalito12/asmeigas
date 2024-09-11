@@ -37,3 +37,31 @@ export const PAGES_GRAPHQL_FIELDS = `
   seoTitle
   seoDescription
 `;
+
+export const BLOG_ITEM_GRAPHQL_FIELDS = `
+  sys {
+    id
+    firstPublishedAt
+  }
+  slug
+  title
+  image {title url}
+`;
+
+export const BLOG_POST_GRAPHQL_FIELDS = `
+  sys {
+    id
+    firstPublishedAt
+  }
+  slug
+  title
+  image {title url}
+  showImageAsHeader
+  instagramUrl
+  body {
+    json
+    links {
+      assets { block { sys { id } title url width height } }
+    }
+  }
+`;

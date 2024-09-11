@@ -1,6 +1,12 @@
-import Link from "next/link"
+import { draftMode } from 'next/headers';
+import BlogItem from './blog-item'
+import { getBlogPosts } from '@/lib/contentful/api';
+import { BlogPost } from '@/types/contentful';
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const { isEnabled } = draftMode();
+  const posts = await getBlogPosts(4, isEnabled) as BlogPost[];
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
       <div className="container px-4 md:px-6">
@@ -14,82 +20,14 @@ export default function BlogPage() {
           </div>
         </div>
         <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-          <Link
-            href="#"
-            className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-            prefetch={false}
-          >
-            <div className="space-y-2 not-prose">
-              <img
-                src="/placeholder.svg"
-                alt="Blog Post Image"
-                width={550}
-                height={310}
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              />
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Diving Into the Aqua Swim Club Experience</h3>
-                <p className="text-muted-foreground">Posted on September 10, 2024</p>
-              </div>
-            </div>
-          </Link>
-          <Link
-            href="#"
-            className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-            prefetch={false}
-          >
-            <div className="space-y-2 not-prose">
-              <img
-                src="/placeholder.svg"
-                alt="Blog Post Image"
-                width={550}
-                height={310}
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              />
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Exploring the Aqua Swim Club's Amenities</h3>
-                <p className="text-muted-foreground">Posted on August 15, 2024</p>
-              </div>
-            </div>
-          </Link>
-          <Link
-            href="#"
-            className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-            prefetch={false}
-          >
-            <div className="space-y-2 not-prose">
-              <img
-                src="/placeholder.svg"
-                alt="Blog Post Image"
-                width={550}
-                height={310}
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              />
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Aqua Swim Club's Competitive Swim Meets</h3>
-                <p className="text-muted-foreground">Posted on July 1, 2024</p>
-              </div>
-            </div>
-          </Link>
-          <Link
-            href="#"
-            className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-            prefetch={false}
-          >
-            <div className="space-y-2 not-prose">
-              <img
-                src="/placeholder.svg"
-                alt="Blog Post Image"
-                width={550}
-                height={310}
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              />
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Aqua Swim Club's Community Events</h3>
-                <p className="text-muted-foreground">Posted on June 20, 2024</p>
-              </div>
-            </div>
-          </Link>
+          {posts?.length > 0 && posts.map((post) => (
+            <BlogItem
+              key={post.sys.id}
+              title={post.title}
+              date={post.sys.firstPublishedAt}
+              image={post.image?.url}
+              href={`/blog/${post.slug}`} />
+          ))}
         </div>
       </div>
     </section>

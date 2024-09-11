@@ -25,7 +25,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link"
 import Image from 'next/image'
-import { getHomePage } from "@/lib/api";
+import { getHomePage } from "@/lib/contentful/api";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TestimonialCard } from './testimonial-card';
 import { draftMode } from 'next/headers';

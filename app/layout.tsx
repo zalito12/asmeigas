@@ -5,7 +5,7 @@ import './globals.css'
 import Link from 'next/link'
 import Header from '@/components/component/header'
 import { draftMode } from 'next/headers'
-import { getPages } from '@/lib/api'
+import { getPages } from '@/lib/contentful/api'
 
 const fontHeading = Bricolage_Grotesque({
   subsets: ['latin'],
