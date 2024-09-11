@@ -9,7 +9,7 @@ export default function BlogPage() {
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Últimas publicacións</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Mergúllate nas Nosas Aventuras Acuáticas</h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Explora as nosas últimas publicacións do noso blog e descubre o apaixonante mundo das Meigas.
+              Explora as últimas publicacións do noso blog e descubre o apaixonante mundo das Meigas.
             </p>
           </div>
         </div>
