@@ -25,11 +25,12 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link"
 import Image from 'next/image'
-import { getHomePage } from "@/lib/contentful/api";
+import { getHomePage, getNextEvents } from "@/lib/contentful/api";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TestimonialCard } from './testimonial-card';
 import { draftMode } from 'next/headers';
-import { ContentfulImage } from '@/types/contentful';
+import { ContentfulImage, Event } from '@/types/contentful';
+import { EventItem } from '../landing/event-item';
 
 interface Testimonial {
   avatar: ContentfulImage;
@@ -41,7 +42,7 @@ export async function LandingPage() {
   const { isEnabled } = draftMode();
   const homePage = await getHomePage(isEnabled);
   const testimonials = homePage?.testimonialsCollection?.items || [];
-  console.log(testimonials);
+  const events = await getNextEvents(3, isEnabled);
   return (
     <>
       <section className="w-full py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">
@@ -90,46 +91,68 @@ export async function LandingPage() {
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-muted-foreground">
-                Amenities
+                Patrocinadores
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Unparalleled Aquatic Facilities</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Os Nosos patrocinadores</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Discover our state-of-the-art pools, saunas, and wellness centers designed to elevate your swimming
-                experience.
+                Isto non sería posible sen a axuda daqueles que decidiron apoiar o noso proxecto e compartir a nosa paixón polo deporte.
               </p>
             </div>
           </div>
-          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-            <img
-              src="/placeholder.svg"
-              width="550"
-              height="310"
-              alt="Amenities"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
-            />
-            <div className="flex flex-col justify-center space-y-4">
-              <ul className="grid gap-6">
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Olympic-Size Pool</h3>
-                    <p className="text-muted-foreground">Train like a pro in our world-class 50-meter pool.</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Heated Jacuzzi</h3>
-                    <p className="text-muted-foreground">Relax and unwind in our luxurious heated jacuzzi.</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Sauna and Steam Room</h3>
-                    <p className="text-muted-foreground">
-                      Rejuvenate your body and mind in our saunas and steam rooms.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+          <div className="mx-auto grid max-w-5xl grid-cols-2 items-center justify-center py-12 gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-12">
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
+            </div>
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
+            </div>
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
+            </div>
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
+            </div>
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
+            </div>
+            <div className="mx-auto flex w-full items-center justify-center group">
+              <img
+                src="/placeholder.svg"
+                width="140"
+                height="70"
+                alt="Sponsor Logo"
+                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
+              />
             </div>
           </div>
         </div>
@@ -186,42 +209,12 @@ export async function LandingPage() {
             />
             <div className="flex flex-col justify-center space-y-4">
               <ul className="grid gap-6">
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Swim Clinic</h3>
-                    <p className="text-muted-foreground">
-                      Join our expert coaches for a comprehensive swim clinic to improve your technique.
-                    </p>
-                    <div className="flex items-center text-muted-foreground">
-                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                      <span>June 15, 2023</span>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Aqua Fitness Challenge</h3>
-                    <p className="text-muted-foreground">
-                      Compete in our exciting Aqua Fitness Challenge and win great prizes.
-                    </p>
-                    <div className="flex items-center text-muted-foreground">
-                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                      <span>July 20, 2023</span>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="grid gap-1">
-                    <h3 className="text-xl font-bold">Summer Pool Party</h3>
-                    <p className="text-muted-foreground">
-                      Join us for a fun-filled summer pool party with music, food, and games.
-                    </p>
-                    <div className="flex items-center text-muted-foreground">
-                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                      <span>August 5, 2023</span>
-                    </div>
-                  </div>
-                </li>
+                {
+                  events?.length > 0 && events
+                    .map((event: Event) =>
+                      <EventItem event={event} />
+                    )
+                }
               </ul>
             </div>
           </div>
@@ -230,32 +223,3 @@ export async function LandingPage() {
     </>
   )
 }
-
-function CalendarDaysIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-      <path d="M8 14h.01" />
-      <path d="M12 14h.01" />
-      <path d="M16 14h.01" />
-      <path d="M8 18h.01" />
-      <path d="M12 18h.01" />
-      <path d="M16 18h.01" />
-    </svg>
-  )
-}
-

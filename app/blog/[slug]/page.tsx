@@ -26,14 +26,14 @@ export default async function BlogEntry({ params }: { params: { slug: string } }
             height={340}
             className="aspect-video overflow-hidden object-cover w-full max-h-[40rem]"
           />
-          <div className="absolute bottom-4 left-4 bg-black/50 text-white rounded-md px-4 py-2">
+          <div className="absolute bottom-4 left-4 bg-black/70 text-white rounded-md px-4 py-2">
             <h1 className="text-2xl font-bold">{post.title}</h1>
             <p className="text-sm">
               <Time datetime={post.sys.firstPublishedAt} />
             </p>
           </div>
         </div>)}
-      <div className="container px-4 md:px-6 py-12 md:py-24 lg:py-32">
+      <div className="container px-4 md:px-6 py-12 md:py-24">
         <article className="prose prose-gray max-w-none mx-auto lg:max-w-6xl dark:prose-invert text-foreground">
           {(!post.image?.url || !post.showImageAsHeader) && (
             <div className="space-y-2 not-prose">

@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export interface HeaderProps {
   items: { slug: string, menuTitle: string }[]
@@ -10,18 +12,27 @@ export interface HeaderProps {
 export default function Header(props: HeaderProps) {
   const { items } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isFrontPage = pathname === '/'
+
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-50">
       <button className="flex items-center justify-center hidden max-xs:block" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <WavesIcon className="h-6 w-6" />
         <span className="sr-only">Toggle Menu</span>
       </button>
+      {!isFrontPage && (
+        <h1 className='flex flex-row items-center gap-2 max-xs:ml-4'>
+          <Image className="max-xs:hidden" src="/favicon.png" alt="Club Natación As Meigas" width={32} height={32} />
+          As Meigas
+        </h1>
+      )}
       <nav
         className={`ml-auto flex gap-5 text-primary-foreground absolute z-50 ${isMenuOpen ? "block" : "max-xs:hidden"
           } block static flex-row bg-transparent right-0 p-4 max-xs:bg-primary max-xs:flex-col max-xs:top-14 max-xs:left-0`}
       >
         {items?.map((page) => (
-          <Link key={page.slug} href={page.slug} prefetch={false} className="text-sm font-medium hover:underline underline-offset-4">
+          <Link key={page.slug} href={page.slug} prefetch={false} className="text-sm font-medium hover:underline underline-offset-4" onClick={() => setIsMenuOpen(false)}>
             {page.menuTitle}
           </Link>
         ))}

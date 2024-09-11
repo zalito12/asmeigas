@@ -27,8 +27,8 @@ export default function BlogItem(props: BlogItemProps) {
           className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
         />
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">{title}</h3>
-          <p className="text-muted-foreground">
+          <h3 className="text-xl font-bold cursor-pointer">{title}</h3>
+          <p className="text-muted-foreground cursor-pointer">
             <Time datetime={date} />
           </p>
         </div>

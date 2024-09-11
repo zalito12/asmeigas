@@ -65,3 +65,39 @@ export const BLOG_POST_GRAPHQL_FIELDS = `
     }
   }
 `;
+
+export const EVENT_ITEM_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  slug
+  title
+  summary
+  date
+  image { url title}
+`;
+
+export const EVENT_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  slug
+  title
+  summary
+  date
+  image { url title width height }
+  description {
+    json
+    links {
+      assets { block { sys { id } title url width height } }
+    }
+  }
+  location { lat lon }
+  documentsCollection {
+    items {
+      title
+      url
+      size
+    }
+  }
+`;

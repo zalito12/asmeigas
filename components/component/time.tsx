@@ -6,15 +6,16 @@ import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 
 export interface TimeProps {
   datetime: string
+  dayTreshold?: number
 }
 
 const formatter = buildFormatter(strings)
 
 export function Time(props: TimeProps) {
-  const { datetime } = props
+  const { datetime,  dayTreshold = 60 } = props
   const date = new Date(datetime)
   const now = new Date()
-  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+  const diffDays = Math.floor((date.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
   const formattedDate = date.toLocaleDateString('gl-ES', {
     day: '2-digit',
     month: '2-digit',
@@ -26,7 +27,7 @@ export function Time(props: TimeProps) {
 
   return (
     <>
-      {diffDays > 60 ? <span>{formattedDate}</span> : <TimeAgo date={date} formatter={formatter} />}
+      {diffDays > dayTreshold ? <span>{formattedDate}</span> : <TimeAgo date={date} formatter={formatter} />}
     </>
   )
 }
