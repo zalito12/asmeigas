@@ -13,6 +13,9 @@ const config: Config = {
       center: true,
     },
   	extend: {
+      screens: {
+        'xs': '450px',
+      },
 			fontFamily: {
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.mono]

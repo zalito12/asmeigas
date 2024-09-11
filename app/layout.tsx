@@ -3,6 +3,9 @@ import { Space_Mono } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import Link from 'next/link'
+import Header from '@/components/component/header'
+import { draftMode } from 'next/headers'
+import { getPages } from '@/lib/api'
 
 const fontHeading = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -17,11 +20,13 @@ const fontBody = Space_Mono({
   weight: ['400', '700'],
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled } = draftMode();
+  const pages = await getPages(isEnabled);
   return (
     <html lang="en">
       <body
@@ -32,27 +37,10 @@ export default function RootLayout({
         )}
       >
         <div className="flex flex-col min-h-[100dvh]">
-          <header className="px-4 lg:px-6 h-14 flex items-center bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-50">
-            <Link href="#" className="flex items-center justify-center" prefetch={false}>
-              <WavesIcon className="h-6 w-6" />
-              <span className="sr-only">Aqua Swim Club</span>
-            </Link>
-            <nav className="ml-auto flex gap-4 sm:gap-6">
-              <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                Amenities
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                Testimonials
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                Events
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                Contact
-              </Link>
-            </nav>
-          </header>
-          {children}
+          <Header items={pages} />
+          <main className="flex-1 mt-14">
+            {children}
+          </main>
           <footer className="flex flex-col gap-2 bg-muted p-6 md:py-12 w-full">
             <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
               <div className="grid gap-1">

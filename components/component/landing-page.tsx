@@ -29,12 +29,21 @@ import { getHomePage } from "@/lib/api";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TestimonialCard } from './testimonial-card';
 import { draftMode } from 'next/headers';
+import { ContentfulImage } from '@/types/contentful';
+
+interface Testimonial {
+  avatar: ContentfulImage;
+  name: string;
+  quote: string;
+}
 
 export async function LandingPage() {
   const { isEnabled } = draftMode();
   const homePage = await getHomePage(isEnabled);
+  const testimonials = homePage?.testimonialsCollection?.items || [];
+  console.log(testimonials);
   return (
-    <main className="flex-1 mt-14">
+    <>
       <section className="w-full py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
@@ -142,10 +151,10 @@ export async function LandingPage() {
           </div>
           <div className="mx-auto grid max-w-5xl items-stretch gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             {
-              homePage.testimonials?.length > 0 && homePage.testimonials
-                .map((testimonial: { name: string, text: string }) => 
-                  testimonial.name && testimonial.text && (
-                    <TestimonialCard name={testimonial.name} quote={testimonial.text} />
+              testimonials?.length > 0 && testimonials
+                .map((testimonial: Testimonial) =>
+                  testimonial.name && testimonial.quote && (
+                    <TestimonialCard name={testimonial.name} quote={testimonial.quote} avatar={testimonial.avatar?.url} />
                   )
                 )
             }
@@ -161,7 +170,7 @@ export async function LandingPage() {
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 {homePage.eventsTitle}
-                </h2>
+              </h2>
               <div className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {documentToReactComponents(homePage.eventsDescription?.json)}
               </div>
@@ -218,7 +227,7 @@ export async function LandingPage() {
           </div>
         </div>
       </section>
-    </main >
+    </>
   )
 }
 
