@@ -8,6 +8,26 @@ import renderOptions from '@/lib/contentful/render-options';
 import { Document, Event } from '@/types/contentful';
 import { CalendarDaysIcon } from 'lucide-react';
 import { DocumentCard } from '@/components/component/document-card';
+import type { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+  params: { slug: string }
+}
+
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const event = await getEvent(params.slug) as Event;
+  
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: `CN As Meigas | ${event.title}`,
+    description: event.summary,
+    openGraph: {
+      images: [event.image?.url, ...previousImages],
+    },
+  }
+}
 
 export default async function EventEntry({ params }: { params: { slug: string } }) {
   const { isEnabled } = draftMode();
@@ -30,12 +50,10 @@ export default async function EventEntry({ params }: { params: { slug: string } 
           />
           <div className="absolute bottom-4 left-4 bg-black/70 text-white rounded-md px-4 py-2">
             <h1 className="text-2xl font-bold">{event.title}</h1>
-            <p className="text-sm">
-              <div className="flex items-center">
-                <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                <span><Time datetime={event.date} dayTreshold={1} /></span>
-              </div>
-            </p>
+            <div className="flex items-center text-sm">
+              <CalendarDaysIcon className="mr-2 h-4 w-4" />
+              <span><Time datetime={event.date} dayTreshold={1} /></span>
+            </div>
           </div>
         </div>)}
       <div className="container px-4 md:px-6 py-12 md:py-24">

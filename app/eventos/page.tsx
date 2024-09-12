@@ -1,9 +1,14 @@
 import { getNextEvents } from '@/lib/contentful/api';
-import { CalendarDaysIcon } from 'lucide-react';
 import { draftMode } from 'next/headers';
-import Link from 'next/link';
 import EventCard from './event-card';
 import { Event } from '@/types/contentful';
+import { pathname } from 'next-extra/pathname';
+import { Metadata } from 'next';
+import { getPageMetadata } from '@/lib/utils';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata(pathname());
+}
 
 export default async function EventsPage() {
   const { isEnabled } = draftMode();

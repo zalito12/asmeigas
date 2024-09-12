@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Header from '@/components/component/header'
 import { draftMode } from 'next/headers'
 import { getPages } from '@/lib/contentful/api'
+import { Metadata } from 'next'
 
 const fontHeading = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -20,15 +21,23 @@ const fontBody = Space_Mono({
   weight: ['400', '700'],
 })
 
+export const metadata: Metadata = {
+  title: {
+    template: '%s',
+    default: 'CN As Meigas',
+  },
+  description: 'Club de Natación As Meigas'
+}
+
 export default async function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const { isEnabled } = draftMode();
   const pages = await getPages(isEnabled);
   return (
-    <html lang="en">
+    <html lang="gl">
       <body
         className={cn(
           'antialiased',

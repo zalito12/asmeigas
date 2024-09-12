@@ -2,6 +2,13 @@ import Image from 'next/image'
 import { getHomePage } from "@/lib/contentful/api";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { draftMode } from 'next/headers';
+import { pathname } from 'next-extra/pathname';
+import { Metadata } from 'next';
+import { getPageMetadata } from '@/lib/utils';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata(pathname());
+}
 
 export default async function ClubPage() {
   const { isEnabled } = draftMode();

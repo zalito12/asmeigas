@@ -2,6 +2,13 @@ import { draftMode } from 'next/headers';
 import BlogItem from './blog-item'
 import { getBlogPosts } from '@/lib/contentful/api';
 import { BlogPost } from '@/types/contentful';
+import { pathname } from 'next-extra/pathname';
+import { Metadata } from 'next';
+import { getPageMetadata } from '@/lib/utils';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata(pathname());
+}
 
 export default async function BlogPage() {
   const { isEnabled } = draftMode();

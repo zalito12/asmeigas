@@ -6,10 +6,40 @@ import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { notFound } from 'next/navigation';
 import renderOptions from '@/lib/contentful/render-options';
+import type { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+  params: { slug: string }
+}
+
+let post: BlogPost;
+
+const getPost = async (slug: string) => {
+  if (post) {
+    return post;
+  }
+  const { isEnabled } = draftMode();
+  post = await getBlogPost(slug, isEnabled) as BlogPost;
+  return post;
+}
+
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: `CN As Meigas | ${post.title}`,
+    description: post.title,
+    openGraph: {
+      images: [post.image?.url, ...previousImages],
+    },
+  }
+}
 
 export default async function BlogEntry({ params }: { params: { slug: string } }) {
-  const { isEnabled } = draftMode();
-  const post = await getBlogPost(params.slug, isEnabled) as BlogPost;
+  const post = await getPost(params.slug);
 
   if (!post) {
     notFound();

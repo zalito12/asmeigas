@@ -1,6 +1,13 @@
 import { LandingPage } from '@/components/component/landing-page';
 import { getHomePage, getNextEvents } from '@/lib/contentful/api';
+import { getPageMetadata } from '@/lib/utils';
+import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
+import { pathname } from 'next-extra/pathname';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata(pathname());
+}
 
 export default async function Home() {
   const { isEnabled } = draftMode();
