@@ -33,6 +33,7 @@ export default async function BlogPage() {
               title={post.title}
               date={post.sys.firstPublishedAt}
               image={post.image?.url}
+              description={post.summary}
               href={`/blog/${post.slug}`} />
           ))}
         </div>

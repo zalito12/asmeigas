@@ -11,16 +11,23 @@ export function EventItem(props: EventItemProps) {
   const { event } = props;
   return (
     <li>
-      <Link className="group grid gap-1 p-2 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+      <Link
+        href={`/eventos/${event.slug}`}
+        className="relative flex flex-row bg-muted rounded-lg overflow-hidden transition-all hover:opacity-80"
         prefetch={false}
-        href={`/eventos/${event.slug}`}>
-        <h3 className="text-xl font-bold cursor-pointer">{event.title}</h3>
-        <p className="text-muted-foreground cursor-pointer">
-          {event.summary}
-        </p>
-        <div className="flex items-center text-muted-foreground">
-          <CalendarDaysIcon className="mr-2 h-4 w-4" />
-          <span><Time datetime={event.date} dayTreshold={1} /></span>
+      >
+        <div className="absolute left-0 top-0 h-full w-1 bg-primary" />
+        <div className="p-4 flex-1 grid gap-2">
+          <div className="flex items-center gap-2">
+            <CalendarDaysIcon className="w-4 h-4 text-muted-foreground" />
+            <div className="text-sm text-muted-foreground">
+              <Time datetime={event.date} dayTreshold={1} />
+            </div>
+          </div>
+          <div className="text-lg font-bold">{event.title}</div>
+          <div className="text-muted-foreground line-clamp-2">
+            {event.summary}
+          </div>
         </div>
       </Link>
     </li>

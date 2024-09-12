@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Time } from '@/components/component/time';
+import { Button } from '@/components/ui/button';
 
 export interface BlogItemProps {
   title: string;
@@ -11,26 +12,37 @@ export interface BlogItemProps {
 }
 
 export default function BlogItem(props: BlogItemProps) {
-  const { title, date, image, href } = props;
+  const { title, date, image, href, description } = props;
   return (
     <Link
       href={href}
-      className="group grid h-auto w-full items-center justify-center gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+      className="group flex flex-col bg-muted rounded-lg overflow-hidden transition-all hover:opacity-80"
       prefetch={false}
     >
-      <div className="space-y-2 not-prose">
+      <div className="relative aspect-video">
         <Image
           src={image || "/placeholder.svg"}
           alt={title}
-          width={550}
-          height={310}
-          className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+          width={400}
+          height={400}
+          className="aspect-video object-cover w-full h-full"
         />
-        <div className="space-y-2">
-          <h3 className="text-xl font-bold cursor-pointer">{title}</h3>
-          <p className="text-muted-foreground cursor-pointer">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute bottom-4 left-4 text-white">
+          <div className="text-lg font-bold">{title}</div>
+          <div className="text-sm">
             <Time datetime={date} />
-          </p>
+          </div>
+        </div>
+      </div>
+      <div className="p-4 flex-1 grid gap-2">
+        <div className="text-muted-foreground line-clamp-2">
+          {description}
+        </div>
+        <div className="mt-auto">
+          <Button variant="outline" className="w-full">
+            Seguir lendo
+          </Button>
         </div>
       </div>
     </Link>

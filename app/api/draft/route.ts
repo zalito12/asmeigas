@@ -1,4 +1,3 @@
-import { getHomePage } from "@/lib/contentful/api";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -15,19 +14,6 @@ export async function GET(request: Request) {
     return new Response("Invalid token", { status: 401 });
   }
 
-  /* const page = await getPage(slug);
-
-  if (!page) {
-    return new Response("Page not found", { status: 404 });
-  } */
-
   draftMode().enable();
   redirect(`${slug}`);
 }
-
-/* const getPage = async (slug: string) => {
-  switch(slug) {
-    default:
-      return await getHomePage(true);
-  }
-} */

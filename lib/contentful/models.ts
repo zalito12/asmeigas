@@ -46,6 +46,7 @@ export const BLOG_ITEM_GRAPHQL_FIELDS = `
   slug
   title
   image {title url}
+  summary
 `;
 
 export const BLOG_POST_GRAPHQL_FIELDS = `

@@ -14,6 +14,7 @@ export interface BlogPost {
   showImageAsHeader: boolean;
   instagramUrl: string;
   slug: string;
+  summary?: string;
   body?: any;
 }
 export interface Event {
