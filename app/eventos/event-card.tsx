@@ -13,17 +13,19 @@ export default function EventCard(props: EventCardProps) {
   return (
     <Link
       href={`/eventos/${event.slug}`}
-      className="relative flex flex-row bg-muted rounded-lg overflow-hidden transition-all hover:opacity-80"
+      className="group relative flex flex-row bg-muted rounded-lg overflow-hidden hover:bg-muted/80"
       prefetch={false}
     >
-      <div className="absolute left-0 top-0 h-full w-1 bg-primary" />
-      <Image
-        src={event.image.url}
-        alt={event.image.title}
-        width={300}
-        height={300}
-        className="aspect-video overflow-hidden object-cover max-w-[25%] max-sm:hidden"
-      />
+      <div className="absolute left-0 top-0 h-full w-1 bg-primary z-50 brightness-150" />
+      {event.image && (
+        <Image
+          src={event.image.url}
+          alt={event.image.title}
+          width={300}
+          height={300}
+          className="aspect-video overflow-hidden object-cover max-w-[25%] max-sm:hidden group-hover:brightness-[80%]"
+        />
+      )}
       <div className="p-4 flex-1 grid gap-2">
         <div className="flex items-center gap-2">
           <CalendarDaysIcon className="w-4 h-4 text-muted-foreground" />

@@ -22,7 +22,7 @@ export interface Event {
     id: string;
   };
   title: string;
-  image: ContentfulImage;
+  image?: ContentfulImage;
   summary: string;
   slug: string;
   date: any;

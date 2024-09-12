@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 export interface BlogItemProps {
   title: string;
   date: string;
-  image: string;
+  image?: string;
   href: string;
   description?: string;
 }
@@ -16,18 +16,20 @@ export default function BlogItem(props: BlogItemProps) {
   return (
     <Link
       href={href}
-      className="group flex flex-col bg-muted rounded-lg overflow-hidden transition-all hover:opacity-80"
+      className="group flex flex-col bg-muted rounded-lg overflow-hidden hover:bg-muted/80"
       prefetch={false}
     >
       <div className="relative aspect-video">
-        <Image
-          src={image || "/placeholder.svg"}
-          alt={title}
-          width={400}
-          height={400}
-          className="aspect-video object-cover w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        {image && (<>
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            width={400}
+            height={400}
+            className="aspect-video object-cover w-full h-full group-hover:brightness-[80%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </>)}
         <div className="absolute bottom-4 left-4 text-white">
           <div className="text-lg font-bold">{title}</div>
           <div className="text-sm">
