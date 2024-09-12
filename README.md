@@ -6,6 +6,8 @@ This is the official website for [As Meigas Swimming Club](https://www.asmeigas.
 
 This website serves as the online presence for [As Meigas Swimming Club](https://www.asmeigas.es), providing information about the club, upcoming events, blog posts, and more.
 
+![image](https://github.com/user-attachments/assets/32a014c6-9207-4242-a16c-02d970c6711c)
+
 ## Features
 
 - Responsive design for various devices
