@@ -25,15 +25,16 @@ const getPost = async (slug: string) => {
 
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const post = await getPost(params.slug);
-  
+
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
+  const images = post.image?.url ? [post.image.url, ...previousImages] : previousImages;
 
   return {
     title: `CN As Meigas | ${post.title}`,
     description: post.title,
     openGraph: {
-      images: [post.image?.url, ...previousImages],
+      images: images,
     },
   }
 }

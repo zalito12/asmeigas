@@ -10,7 +10,7 @@ export interface BlogPost {
     firstPublishedAt: string;
   };
   title: string;
-  image: ContentfulImage;
+  image?: ContentfulImage;
   showImageAsHeader: boolean;
   instagramUrl: string;
   slug: string;

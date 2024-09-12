@@ -19,12 +19,13 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
+  const images = event.image?.url ? [event.image.url, ...previousImages] : previousImages;
 
   return {
     title: `CN As Meigas | ${event.title}`,
     description: event.summary,
     openGraph: {
-      images: [event.image?.url, ...previousImages],
+      images: images,
     },
   }
 }
