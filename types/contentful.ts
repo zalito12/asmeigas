@@ -34,3 +34,9 @@ export interface Document {
   url: string;
   size: number;
 }
+
+export interface Testimonial {
+  avatar: ContentfulImage;
+  name: string;
+  quote: string;
+}

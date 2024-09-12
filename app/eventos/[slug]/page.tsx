@@ -55,7 +55,7 @@ export default async function EventEntry({ params }: { params: { slug: string } 
           {documentToReactComponents(event.description.json, renderOptions(event.description.links))}
           <div className="flex gap-4">
             {event.documentsCollection?.items?.map((document: Document, index: number) => (
-              <DocumentCard key={index.toString()} document={document} />
+              <DocumentCard key={index} document={document} />
             ))}
           </div>
         </article>

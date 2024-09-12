@@ -1,7 +1,7 @@
 import { Bricolage_Grotesque } from 'next/font/google'
 import { Space_Mono } from 'next/font/google'
 import { cn } from '@/lib/utils'
-import './globals.css'
+import '../styles/globals.css'
 import Link from 'next/link'
 import Header from '@/components/component/header'
 import { draftMode } from 'next/headers'

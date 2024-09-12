@@ -7,7 +7,7 @@ interface EventItemProps {
   event: Event;
 }
 
-export async function EventItem(props: EventItemProps) {
+export function EventItem(props: EventItemProps) {
   const { event } = props;
   return (
     <li>

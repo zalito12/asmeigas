@@ -8,7 +8,7 @@ interface EventCardProps {
   event: Event;
 }
 
-export default async function EventCard(props: EventCardProps) {
+export default function EventCard(props: EventCardProps) {
   const { event } = props;
   return (
     <Link
@@ -20,8 +20,8 @@ export default async function EventCard(props: EventCardProps) {
       <Image
         src={event.image.url}
         alt={event.image.title}
-        width={1250}
-        height={340}
+        width={300}
+        height={300}
         className="aspect-video overflow-hidden object-cover max-w-[25%] max-sm:hidden"
       />
       <div className="p-4 flex-1 grid gap-2">
