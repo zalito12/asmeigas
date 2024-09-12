@@ -41,19 +41,17 @@ export default async function EventEntry({ params }: { params: { slug: string } 
       <div className="container px-4 md:px-6 py-12 md:py-24">
         <article className="prose prose-gray max-w-none mx-auto lg:max-w-6xl dark:prose-invert text-foreground">
           {!event.image?.url && (
-            < div className="space-y-2 not-prose">
+            <div className="space-y-2 not-prose">
               <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem] text-foreground">
                 {event.title}
               </h1>
-              <p className="text-muted-foreground">
-                <div className="flex items-center text-muted-foreground">
-                  <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                  <span><Time datetime={event.date} dayTreshold={1} /></span>
-                </div>
-              </p>
+              <div className="flex items-center text-muted-foreground">
+                <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                <span><Time datetime={event.date} dayTreshold={1} /></span>
+              </div>
             </div>)}
           {documentToReactComponents(event.description.json, renderOptions(event.description.links))}
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 max-sm:justify-center">
             {event.documentsCollection?.items?.map((document: Document, index: number) => (
               <DocumentCard key={index} document={document} />
             ))}
