@@ -16,7 +16,7 @@ export default function EventCard(props: EventCardProps) {
       className="group relative flex flex-row bg-muted rounded-lg overflow-hidden hover:bg-muted/80"
       prefetch={false}
     >
-      <div className="absolute left-0 top-0 h-full w-1 bg-primary z-50 brightness-150" />
+      <div className="absolute left-0 top-0 h-full w-1 bg-primary brightness-150 z-20" />
       {event.image && (
         <Image
           src={event.image.url}

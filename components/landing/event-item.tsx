@@ -16,7 +16,7 @@ export function EventItem(props: EventItemProps) {
         className="relative flex flex-row bg-muted rounded-lg overflow-hidden transition-all hover:opacity-80"
         prefetch={false}
       >
-        <div className="absolute left-0 top-0 h-full w-1 bg-primary" />
+        <div className="absolute left-0 top-0 h-full w-1 bg-primary brightness-150" />
         <div className="p-4 flex-1 grid gap-2">
           <div className="flex items-center gap-2">
             <CalendarDaysIcon className="w-4 h-4 text-muted-foreground" />
