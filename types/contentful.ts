@@ -41,3 +41,9 @@ export interface Testimonial {
   name: string;
   quote: string;
 }
+
+export interface Sponsor {
+  name: string;
+  link: string;
+  logo: ContentfulImage;
+}

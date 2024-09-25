@@ -2,17 +2,19 @@ import Link from "next/link"
 import Image from 'next/image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TestimonialCard } from './testimonial-card';
-import { Event, Testimonial } from '@/types/contentful';
+import { Event, Sponsor, Testimonial } from '@/types/contentful';
 import { EventItem } from '../landing/event-item';
+import { SponsorCard } from "./sponsor-card";
 
 export interface LandingPageProps {
   homePage: any;
   testimonials: Testimonial[];
   events: Event[];
+  sponsors: Sponsor[];
 }
 
 export function LandingPage(props: LandingPageProps) {
-  const { homePage, testimonials, events } = props ;
+  const { homePage, testimonials, events, sponsors } = props;
   return (
     <>
       <section className="w-full py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">
@@ -65,65 +67,18 @@ export function LandingPage(props: LandingPageProps) {
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Os Nosos patrocinadores</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Isto non sería posible sen a axuda daqueles que decidiron apoiar o noso proxecto e compartir a nosa paixón polo deporte.
+                {homePage.sponsorsText}
               </p>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl grid-cols-2 items-center justify-center py-12 gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-12">
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
-            <div className="mx-auto flex w-full items-center justify-center group">
-              <img
-                src="/placeholder.svg"
-                width="140"
-                height="70"
-                alt="Sponsor Logo"
-                className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center grayscale group-hover:grayscale-0"
-              />
-            </div>
+            {
+              sponsors.map((sponsor: Sponsor, index: number) =>
+                sponsor.name && sponsor.logo?.url && (
+                  <SponsorCard key={index} name={sponsor.name} image={sponsor.logo.url} link={sponsor.link} />
+                )
+              )
+            }
           </div>
         </div>
       </section>

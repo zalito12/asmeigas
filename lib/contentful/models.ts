@@ -25,6 +25,14 @@ export const HOMEPAGE_GRAPHQL_FIELDS = `
     title
     url
   }
+  sponsorsText
+  sponsorsCollection(limit: 10) {
+    items {
+      name
+      link
+      logo { title url }
+    }
+  }
 `;
 
 export const PAGES_GRAPHQL_FIELDS = `

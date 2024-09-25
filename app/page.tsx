@@ -13,8 +13,9 @@ export default async function Home() {
   const { isEnabled } = draftMode();
   const homePage = await getHomePage(isEnabled);
   const testimonials = homePage?.testimonialsCollection?.items || [];
+  const sponsors = homePage?.sponsorsCollection?.items || [];
   const events = await getNextEvents(2, isEnabled) || [];
   return (
-    <LandingPage homePage={homePage} testimonials={testimonials} events={events} />
+    <LandingPage homePage={homePage} sponsors={sponsors} testimonials={testimonials} events={events} />
   );
 }
