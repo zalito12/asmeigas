@@ -74,8 +74,8 @@ export function LandingPage(props: LandingPageProps) {
           <div className="mx-auto grid max-w-5xl grid-cols-2 items-center justify-center py-12 gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-12">
             {
               sponsors.map((sponsor: Sponsor, index: number) =>
-                sponsor.name && sponsor.logo?.url && (
-                  <SponsorCard key={index} name={sponsor.name} image={sponsor.logo.url} link={sponsor.link} />
+                (sponsor.name || sponsor.logo?.url) && (
+                  <SponsorCard key={index} name={sponsor.name} image={sponsor.logo?.url} link={sponsor.link} />
                 )
               )
             }

@@ -26,7 +26,7 @@ export const HOMEPAGE_GRAPHQL_FIELDS = `
     url
   }
   sponsorsText
-  sponsorsCollection(limit: 10) {
+  sponsorsCollection(limit: 50) {
     items {
       name
       link

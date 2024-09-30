@@ -3,14 +3,14 @@ import Image from "next/image"
 
 export interface SponsorCardProps {
     name: string
-    image: string
+    image?: string
     link?: string
 }
 
 export function SponsorCard(props: SponsorCardProps) {
     const { name, image, link } = props
 
-    const imageElement = (
+    const imageElement = image && (
         <div className="mx-auto flex w-full items-center justify-center group">
             <Image
                 src={image}
@@ -27,8 +27,9 @@ export function SponsorCard(props: SponsorCardProps) {
             <Link
                 href={link}
                 target="_blank"
+                className="hover:text-primary hover:underline"
             >
-                {imageElement}
+                {imageElement || name}
             </Link>
         )
     }
