@@ -1,6 +1,6 @@
 undefined;
-import { Options } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import { Options } from '@contentful/rich-text-react-renderer';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { link } from 'fs';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +8,14 @@ import Link from 'next/link';
 // Create a bespoke renderOptions object to target BLOCKS.EMBEDDED_ENTRY (linked block entries e.g. code blocks)
 // INLINES.EMBEDDED_ENTRY (linked inline entries e.g. a reference to another blog post)
 // and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
+
+const isVideo = (contentType: string) => {
+  return contentType?.startsWith('video/');
+};
+
+const isImage = (contentType: string) => {
+  return contentType?.startsWith('image/');
+};
 
 export default function renderOptions(links: any): Options {
   // create an asset map
@@ -43,7 +51,7 @@ export default function renderOptions(links: any): Options {
         const entry = entryMap.get(node.data.target.sys.id);
 
         // render the entries as needed
-        if (entry.__typename === "BlogPost") {
+        if (entry.__typename === 'BlogPost') {
           return <Link href={`/blog/${entry.slug}`}>{entry.title}</Link>;
         }
       },
@@ -53,7 +61,7 @@ export default function renderOptions(links: any): Options {
 
         // render the entries as needed by looking at the __typename
         // referenced in the GraphQL query
-        if (entry.__typename === "CodeBlock") {
+        if (entry.__typename === 'CodeBlock') {
           return (
             <pre>
               <code>{entry.code}</code>
@@ -61,7 +69,7 @@ export default function renderOptions(links: any): Options {
           );
         }
 
-        if (entry.__typename === "VideoEmbed") {
+        if (entry.__typename === 'VideoEmbed') {
           return (
             <iframe
               src={entry.embedUrl}
@@ -79,12 +87,36 @@ export default function renderOptions(links: any): Options {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
 
-        // render the asset accordingly
-        return (asset && <Image className="mx-auto" src={asset.url} alt={asset.title} width={asset.width} height={asset.height} />);
+        if (asset && isVideo(asset.contentType)) {
+          return (
+            <video controls className="max-h-[32rem] mx-auto">
+              <source src={asset.url} type={asset.contentType} />
+              Your browser does not support the video tag.
+            </video>
+          );
+        }
+
+        if (asset && isImage(asset.contentType)) {
+          return (
+            <Image
+              className="mx-auto"
+              src={asset.url}
+              alt={asset.title}
+              width={asset.width}
+              height={asset.height}
+            />
+          );
+        }
+
+        return <pre>Missing asset type</pre>;
       },
       [INLINES.HYPERLINK]: (node: any, children: any) => {
-        return <Link className="text-primary" href={node.data.uri} target="_blank">{children}</Link>;
-      }
-    }
+        return (
+          <Link className="text-primary" href={node.data.uri} target="_blank">
+            {children}
+          </Link>
+        );
+      },
+    },
   };
 }

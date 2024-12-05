@@ -27,7 +27,7 @@ export interface Event {
   slug: string;
   date: any;
   description?: any;
-  location?: any;
+  location?: { lat: number; lon: number };
   documentsCollection?: { items: Document[] };
 }
 export interface Document {

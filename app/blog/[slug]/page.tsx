@@ -6,29 +6,28 @@ import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { notFound } from 'next/navigation';
 import renderOptions from '@/lib/contentful/render-options';
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
-  params: { slug: string }
-}
-
-let post: BlogPost;
+  params: { slug: string };
+};
 
 const getPost = async (slug: string) => {
-  if (post) {
-    return post;
-  }
   const { isEnabled } = draftMode();
-  post = await getBlogPost(slug, isEnabled) as BlogPost;
-  return post;
-}
+  return (await getBlogPost(slug, isEnabled)) as BlogPost;
+};
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const post = await getPost(params.slug);
 
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || []
-  const images = post.image?.url ? [post.image.url, ...previousImages] : previousImages;
+  const previousImages = (await parent).openGraph?.images || [];
+  const images = post.image?.url
+    ? [post.image.url, ...previousImages]
+    : previousImages;
 
   return {
     title: `CN As Meigas | ${post.title}`,
@@ -36,12 +35,16 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     openGraph: {
       images: images,
     },
-  }
+  };
 }
 
-export default async function BlogEntry({ params }: { params: { slug: string } }) {
+export default async function BlogEntry({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = await getPost(params.slug);
-
+  //console.log(post);
   if (!post) {
     notFound();
   }
@@ -53,8 +56,8 @@ export default async function BlogEntry({ params }: { params: { slug: string } }
           <Image
             src={post.image.url}
             alt={post.image.title}
-            width={1250}
-            height={340}
+            width={1920}
+            height={1080}
             className="aspect-video overflow-hidden object-cover w-full max-h-[40rem]"
           />
           <div className="absolute bottom-4 left-4 bg-black/70 text-white rounded-md px-4 py-2">
@@ -63,7 +66,8 @@ export default async function BlogEntry({ params }: { params: { slug: string } }
               <Time datetime={post.sys.firstPublishedAt} />
             </p>
           </div>
-        </div>)}
+        </div>
+      )}
       <div className="container px-4 md:px-6 py-12 md:py-24">
         <article className="prose prose-gray max-w-none mx-auto lg:max-w-6xl dark:prose-invert text-foreground">
           {(!post.image?.url || !post.showImageAsHeader) && (
@@ -74,10 +78,14 @@ export default async function BlogEntry({ params }: { params: { slug: string } }
               <p className="text-muted-foreground">
                 <Time datetime={post.sys.firstPublishedAt} />
               </p>
-            </div>)}
-          {documentToReactComponents(post.body.json, renderOptions(post.body.links))}
+            </div>
+          )}
+          {documentToReactComponents(
+            post.body.json,
+            renderOptions(post.body.links)
+          )}
         </article>
       </div>
     </section>
-  )
+  );
 }

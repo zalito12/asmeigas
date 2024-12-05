@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Document } from '@/types/contentful'
 import { File } from 'lucide-react'
 import Link from 'next/link'

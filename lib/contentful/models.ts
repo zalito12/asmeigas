@@ -64,13 +64,13 @@ export const BLOG_POST_GRAPHQL_FIELDS = `
   }
   slug
   title
-  image {title url}
+  image {title url width height}
   showImageAsHeader
   instagramUrl
   body {
     json
     links {
-      assets { block { sys { id } title url width height } }
+      assets { block { sys { id } contentType title url width height } }
     }
   }
 `;
@@ -83,7 +83,7 @@ export const EVENT_ITEM_GRAPHQL_FIELDS = `
   title
   summary
   date
-  image { url title}
+  image { url title }
 `;
 
 export const EVENT_GRAPHQL_FIELDS = `
@@ -98,7 +98,7 @@ export const EVENT_GRAPHQL_FIELDS = `
   description {
     json
     links {
-      assets { block { sys { id } title url width height } }
+      assets { block { sys { id } contentType title url width height } }
     }
   }
   location { lat lon }
