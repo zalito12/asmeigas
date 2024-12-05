@@ -7,6 +7,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { notFound } from 'next/navigation';
 import renderOptions from '@/lib/contentful/render-options';
 import type { Metadata, ResolvingMetadata } from 'next';
+import Link from 'next/link';
 
 type Props = {
   params: { slug: string };
@@ -85,6 +86,27 @@ export default async function BlogEntry({
             renderOptions(post.body.links)
           )}
         </article>
+        {post.instagramUrl && (
+          <div className="space-y-8 mx-auto text-center mt-12 md:mt-24">
+            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-muted-foreground">
+              Nas redes
+            </div>
+            <div className="flex justify-center">
+              <Link
+                className="w-12 block"
+                target="_blank"
+                href={post.instagramUrl}
+              >
+                <Image
+                  src="/instagram_white_128.png"
+                  width={48}
+                  height={48}
+                  alt="Instagram"
+                />
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

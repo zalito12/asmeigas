@@ -22,10 +22,11 @@ export default function StaticMap(props: StaticMapProps) {
       target="_blank"
     >
       <Image
-        className="overflow-hidden mx-auto object-cover"
+        className="overflow-hidden mx-auto object-cover w-auto"
         style={{ height: `${height}px` }}
-        width={width}
-        height={height}
+        width={0}
+        height={0}
+        sizes={`${width}x${height}`}
         src={`https://maps.googleapis.com/maps/api/staticmap?center=${where}&zoom=16&size=${width}x${height}&key=${API_KEY}&markers=color:red|${where}`}
         alt={name}
       />
