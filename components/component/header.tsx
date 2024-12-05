@@ -18,7 +18,7 @@ export default function Header(props: HeaderProps) {
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-50">
       <button
-        className="flex items-center justify-center hidden max-xs:block"
+        className="hidden items-center justify-center max-xs:block"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <WavesIcon className="h-6 w-6" />
@@ -38,7 +38,7 @@ export default function Header(props: HeaderProps) {
       )}
       {isFrontPage && (
         <Link
-          className="w-6"
+          className="w-6 max-xs:absolute max-xs:right-4"
           target="_blank"
           href="https://www.instagram.com/natacionasmeigas/"
         >
