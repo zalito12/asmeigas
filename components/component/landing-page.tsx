@@ -1,10 +1,11 @@
-import Link from "next/link"
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TestimonialCard } from './testimonial-card';
 import { Event, Sponsor, Testimonial } from '@/types/contentful';
 import { EventItem } from '../landing/event-item';
-import { SponsorCard } from "./sponsor-card";
+import { SponsorCard } from './sponsor-card';
+import SparklesText from '../ui/sparkles-text';
 
 export interface LandingPageProps {
   homePage: any;
@@ -23,7 +24,9 @@ export function LandingPage(props: LandingPageProps) {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  {homePage.heroTitle}
+                  {/* {homePage.heroTitle} */}
+                  Descubre As Meigas, un club con <SparklesText className="inline-flex" text="maxia" />
+                  {/* <SparklesText text={homePage.heroTitle} sparklesCount={20} /> */}
                 </h1>
                 <div className="max-w-[600px] text-primary-foreground/80 md:text-xl">
                   {documentToReactComponents(homePage.heroText?.json)}
@@ -37,7 +40,8 @@ export function LandingPage(props: LandingPageProps) {
                     prefetch={false}
                   >
                     {homePage.callToAction1.text}
-                  </Link>)}
+                  </Link>
+                )}
                 {homePage.callToAction2 && (
                   <Link
                     href={homePage.callToAction2.link}
@@ -45,7 +49,8 @@ export function LandingPage(props: LandingPageProps) {
                     prefetch={false}
                   >
                     {homePage.callToAction2.text}
-                  </Link>)}
+                  </Link>
+                )}
               </div>
             </div>
             <Image
@@ -65,20 +70,26 @@ export function LandingPage(props: LandingPageProps) {
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-muted-foreground">
                 Patrocinadores
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Os Nosos patrocinadores</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Os Nosos patrocinadores
+              </h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {homePage.sponsorsText}
               </p>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl grid-cols-2 items-center justify-center py-12 gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-12">
-            {
-              sponsors.map((sponsor: Sponsor, index: number) =>
+            {sponsors.map(
+              (sponsor: Sponsor, index: number) =>
                 (sponsor.name || sponsor.logo?.url) && (
-                  <SponsorCard key={index} name={sponsor.name} image={sponsor.logo?.url} link={sponsor.link} />
+                  <SponsorCard
+                    key={index}
+                    name={sponsor.name}
+                    image={sponsor.logo?.url}
+                    link={sponsor.link}
+                  />
                 )
-              )
-            }
+            )}
           </div>
         </div>
       </section>
@@ -93,19 +104,26 @@ export function LandingPage(props: LandingPageProps) {
                 {homePage.testimonialsTitle}
               </h2>
               <div className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {documentToReactComponents(homePage.testimonialsDescription?.json)}
+                {documentToReactComponents(
+                  homePage.testimonialsDescription?.json
+                )}
               </div>
             </div>
           </div>
-          <div className="mx-auto grid max-w-5xl items-stretch gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            {
-              testimonials?.length > 0 && testimonials
-                .map((testimonial: Testimonial, index: number) =>
-                  testimonial.name && testimonial.quote && (
-                    <TestimonialCard key={index} name={testimonial.name} quote={testimonial.quote} avatar={testimonial.avatar?.url} />
+          <div className="mx-auto grid max-w-5xl justify-center items-stretch gap-6 py-12 lg:grid-cols-3 lg:gap-12">
+            {testimonials?.length > 0 &&
+              testimonials.map(
+                (testimonial: Testimonial, index: number) =>
+                  testimonial.name &&
+                  testimonial.quote && (
+                    <TestimonialCard
+                      key={index}
+                      name={testimonial.name}
+                      quote={testimonial.quote}
+                      avatar={testimonial.avatar?.url}
+                    />
                   )
-                )
-            }
+              )}
           </div>
         </div>
       </section>
@@ -126,25 +144,23 @@ export function LandingPage(props: LandingPageProps) {
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
             <Image
-              src={homePage.eventsImage?.url || "/placeholder.svg"}
+              src={homePage.eventsImage?.url || '/placeholder.svg'}
               width={550}
               height={310}
-              alt={homePage.eventsImage?.title || "Eventos"}
+              alt={homePage.eventsImage?.title || 'Eventos'}
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             />
             <div className="flex flex-col justify-center space-y-4">
               <ul className="grid gap-6">
-                {
-                  events?.length > 0 && events
-                    .map((event: Event) =>
-                      <EventItem key={event.sys.id} event={event} />
-                    )
-                }
+                {events?.length > 0 &&
+                  events.map((event: Event) => (
+                    <EventItem key={event.sys.id} event={event} />
+                  ))}
               </ul>
             </div>
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }
