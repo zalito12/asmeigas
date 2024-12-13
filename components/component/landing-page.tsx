@@ -25,7 +25,7 @@ export function LandingPage(props: LandingPageProps) {
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                   {/* {homePage.heroTitle} */}
-                  Descubre As Meigas, un club con <SparklesText className="inline-flex" text="maxia" />
+                  Descubre As Meigas, un club con <SparklesText text="maxia" className="inline-flex text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none" />
                   {/* <SparklesText text={homePage.heroTitle} sparklesCount={20} /> */}
                 </h1>
                 <div className="max-w-[600px] text-primary-foreground/80 md:text-xl">
