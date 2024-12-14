@@ -160,7 +160,7 @@ export default async function ClubPage() {
               </p>
             </div>
           </div>
-          <div className="mx-auto grid max-w-5xl justify-center items-stretch gap-6 py-12 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-5xl justify-center items-stretch gap-6 py-6 lg:py-12 lg:grid-cols-3">
             {tiers.map((tier, index) => (
               <div key={index} className={`px-4 min-w-[300px] ${tier.popular ? 'scale-110 my-6 lg:my-0' : ''}`}>
                 <Card
@@ -216,7 +216,7 @@ export default async function ClubPage() {
               </div>
             ))}
           </div>
-          <div className="mt-6 w-full">
+          <div className="lg:mt-6 max-w-5xl mx-auto px-4">
             <Card className="text-primary-foreground p-6">
               <div className="w-full flex flex-col md:flex-row  items-center gap-4">
                 <div className="flex-grow">
@@ -235,10 +235,12 @@ export default async function ClubPage() {
                 </div>
                 <div className="shrink-0">
                 </div>
-                <Button className="w-full md:w-auto flex gap-4 text-md lg:px-8 shrink-0">
-                  Doar
-                  <HeartHandshake className="w-5 h-5" />
-                </Button>
+                <a className="w-full md:w-auto" target="_blank" href="https://donate.stripe.com/00gcO0b8s4oN6vCfYY">
+                  <Button className="w-full flex gap-4 text-md lg:px-8 shrink-0">
+                    Doar
+                    <HeartHandshake className="w-5 h-5" />
+                  </Button>
+                </a>
               </div>
             </Card>
           </div>
