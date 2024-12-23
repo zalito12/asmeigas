@@ -1,10 +1,14 @@
-import { Gear } from "./gear-list";
+import { Gear } from './page';
 
 interface GearDetailProps {
-    selected: Gear;
+  selected?: Gear;
 }
 
 export default function GearDetail({ selected }: GearDetailProps) {
+  if (!selected) {
+    return <></>;
+  }
+
   return (
     <div className="w-full flex flex-col items-end mt-6">
       <div className="text-xl text-background font-bold">{selected.name}</div>

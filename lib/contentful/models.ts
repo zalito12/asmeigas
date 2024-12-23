@@ -110,3 +110,23 @@ export const EVENT_GRAPHQL_FIELDS = `
     }
   }
 `;
+
+export const GEAR_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  label
+  icono {
+    url
+    title
+  }
+  name
+  description
+  price
+  imagesCollection(limit: 10) {
+    items {
+      url
+      title
+    }
+  }
+`;

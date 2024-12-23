@@ -22,13 +22,9 @@ import {
   WandSparkles,
   WavesLadder,
 } from 'lucide-react';
-import Gear from '@/components/component/gear';
-import Hoodie from '@/components/icons/hoodie';
-import TiraFina from '@/components/icons/tira-fina';
-import TiraAncha from '@/components/icons/tira-ancha';
-import Slip from '@/components/icons/slip';
-import Cap from '@/components/icons/cap';
 import GearList from './gear-list';
+import { draftMode } from 'next/headers';
+import { getGear, getHomePage } from '@/lib/contentful/api';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
@@ -70,9 +66,18 @@ const tiers = [
   },
 ];
 
+export type Gear = {
+  label: string;
+  name: string;
+  description: string;
+  price: number;
+  icono: { url: string; title: string };
+  imagesCollection?: { items?: { url: string; title: string }[] };
+};
+
 export default async function ClubPage() {
-  //const { isEnabled } = draftMode();
-  //const homePage = await getHomePage(isEnabled);
+  const { isEnabled } = draftMode();
+  const gearList = (await getGear(isEnabled)) as Gear[];
 
   return (
     <>
@@ -299,7 +304,7 @@ export default async function ClubPage() {
               </div>
             </div>
           </div>
-          <GearList />
+          {gearList && <GearList items={gearList} />}
         </div>
       </section>
     </>

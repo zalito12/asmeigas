@@ -1,42 +1,42 @@
 'user client';
 
-import Cap from '@/components/icons/cap';
-import Hoodie from '@/components/icons/hoodie';
-import Slip from '@/components/icons/slip';
-import TiraAncha from '@/components/icons/tira-ancha';
-import TiraFina from '@/components/icons/tira-fina';
-import { Shirt } from 'lucide-react';
-import { Gear, GearId } from './gear-list';
-import { ReactNode } from 'react';
+import Image from 'next/image';
+import { Gear } from './page';
 
 interface GearHeaderProps {
-  selected: Gear;
+  selected?: Gear;
   gear: Gear[];
   onChange: (gear: Gear) => void;
 }
 
-const GearIcon: { [key in GearId]: ReactNode } = {
-  camiseta: <Shirt className="w-6 h-6" />,
-  sudadera: <Hoodie className="w-6 h-6" />,
-  gorro: <Cap className="w-6 h-6" />,
-  fina: <TiraFina className="w-6 h-6" />,
-  ancha: <TiraAncha className="w-6 h-6" />,
-  slip: <Slip className="w-6 h-6" />,
-};
-
-export default function GearHeader({ gear, selected, onChange }: GearHeaderProps) {
-
+export default function GearHeader({
+  gear,
+  selected,
+  onChange,
+}: GearHeaderProps) {
   return (
     <div className="w-full flex flex-row gap-2 text-sm text-muted-foreground flex-wrap">
       {gear.map((g) => (
         <button
-          key={g.id}
+          key={g.label}
           className={`bg-background hover:bg-background/60 flex flex-row p-2 gap-2 ${
-            g.id === selected.id ? 'bg-background/60' : ''
+            g === selected ? 'bg-background/60' : ''
           }`}
           onClick={() => onChange(g)}
         >
-          {GearIcon[g.id]}
+          {g.icono && (
+            <Image
+              src={g.icono.url}
+              alt={g.icono.title}
+              width={48}
+              height={48}
+              className="w-6 h-6"
+              style={{
+                filter:
+                  'invert(97%) sepia(64%) saturate(1018%) hue-rotate(162deg) brightness(109%) contrast(104%)',
+              }}
+            />
+          )}
           {g.label}
         </button>
       ))}
