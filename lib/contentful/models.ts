@@ -44,6 +44,7 @@ export const PAGES_GRAPHQL_FIELDS = `
   order
   seoTitle
   seoDescription
+  content { json }
 `;
 
 export const BLOG_ITEM_GRAPHQL_FIELDS = `

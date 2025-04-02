@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
@@ -78,6 +79,7 @@ export type Gear = {
 export default async function ClubPage() {
   const { isEnabled } = draftMode();
   const gearList = (await getGear(isEnabled)) as Gear[];
+  const clubDescription = (await getPageMetadata(pathname())).content;
 
   return (
     <>
@@ -85,6 +87,9 @@ export default async function ClubPage() {
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] grid-rows-1">
             <div className="flex flex-col justify-center items-center">
+              {/* <div className="club-description"> */}
+              {/*     {documentToReactComponents(clubDescription?.json)} */}
+              {/* </div> */}
               <div>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                   Cres na maxia?
@@ -142,18 +147,18 @@ export default async function ClubPage() {
                       alt="As Meigas, Alba e Raquel"
                       aria-hidden="true"
                       role="presentation"
-                      src="/back.jpeg"
-                      height={600}
-                      width={400}
+                      src="/backn.jpeg"
+                      height={350}
+                      width={500}
                     />
                   </div>
                   <div className="col-start-1 row-start-1">
                     <Image
                       alt="As Meigas, Alba e Raquel"
                       className="opacity-0 lg:opacity-100 group-hover:opacity-0 transition-all duration-700"
-                      src="/front.jpeg"
-                      height={600}
-                      width={400}
+                      src="/frontn.jpeg"
+                      height={350}
+                      width={500}
                     />
                   </div>
                 </div>

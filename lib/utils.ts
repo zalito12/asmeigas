@@ -18,6 +18,7 @@ export async function getPageMetadata(pathname: string): Promise<Metadata> {
 
   return {
     title: page?.seoTitle,
-    description: page?.seoDescription
+    description: page?.seoDescription,
+    content: page?.content
   };
 }
