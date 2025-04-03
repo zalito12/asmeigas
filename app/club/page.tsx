@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import GearList from './gear-list';
 import { draftMode } from 'next/headers';
-import { getGear, getHomePage } from '@/lib/contentful/api';
+import { getGear, getHomePage, getPage } from '@/lib/contentful/api';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
@@ -79,7 +79,7 @@ export type Gear = {
 export default async function ClubPage() {
   const { isEnabled } = draftMode();
   const gearList = (await getGear(isEnabled)) as Gear[];
-  const clubDescription = (await getPageMetadata(pathname())).content;
+  const page = (await getPage(pathname()));
 
   return (
     <>
@@ -88,7 +88,7 @@ export default async function ClubPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] grid-rows-1">
             <div className="flex flex-col justify-center items-center">
               {/* <div className="club-description"> */}
-              {/*     {documentToReactComponents(clubDescription?.json)} */}
+              {/*     {documentToReactComponents(page.content?.json)} */}
               {/* </div> */}
               <div>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -190,9 +190,8 @@ export default async function ClubPage() {
             {tiers.map((tier, index) => (
               <div
                 key={index}
-                className={`px-4 min-w-[300px] ${
-                  tier.popular ? 'scale-110 my-6 lg:my-0' : ''
-                }`}
+                className={`px-4 min-w-[300px] ${tier.popular ? 'scale-110 my-6 lg:my-0' : ''
+                  }`}
               >
                 <Card
                   className={`h-full flex flex-col relative text-primary-foreground 
