@@ -143,3 +143,14 @@ export const PLAN_GRAPHQL_FIELDS = `
   featured
   order
 `;
+
+export const ASSET_GRAPHQL_FIELDS = `
+    sys {
+      id
+    }
+    title
+    description
+    url
+    size
+  }
+`;

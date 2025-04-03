@@ -25,7 +25,10 @@ import {
 } from 'lucide-react';
 import GearList from './gear-list';
 import { draftMode } from 'next/headers';
-import { getGear, getHomePage, getPage, getPlans } from '@/lib/contentful/api';
+import { getGear, getHomePage, getPage, getPlans, getRules } from '@/lib/contentful/api';
+import SparklesText from '@/components/ui/sparkles-text';
+import { DocumentCard } from '@/components/component/document-card';
+import { Document } from '@/types/contentful';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
@@ -54,6 +57,7 @@ export default async function ClubPage() {
   const gearList = (await getGear(isEnabled)) as Gear[];
   // const page = (await getPage(pathname(), isEnabled));
   const plans = (await getPlans(isEnabled)) as PlanModel[];
+  const rules = (await getRules(isEnabled)) as Document;
 
   return (
     <>
@@ -154,7 +158,7 @@ export default async function ClubPage() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Sinteste Meiga?
               </h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="max-w-[900px] text-muted-foreground md:text-base/relaxed lg:text-xl/relaxed ">
                 Descobre como formar parte do noso club e contribuir a manter
                 viva a nosa esencia, porque en As Meigas todos sumamos!
               </p>
@@ -265,12 +269,12 @@ export default async function ClubPage() {
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm text-muted-foreground">
-                Equipación
+                Os hábitos
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Estas son as nosas cores
               </h2>
-              <div className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <div className="max-w-[900px] text-muted-foreground md:text-base/relaxed lg:text-xl/relaxed ">
                 Coñece as cores e equipación meigas para atoparnos máis
                 fácilmente na auga, e se che gustan, podes mercar o que queiras
                 para apoiarnos e contaxiar o espírito meigo!
@@ -280,6 +284,58 @@ export default async function ClubPage() {
           {gearList && <GearList items={gearList} />}
         </div>
       </section>
+      <section
+        id="xunta"
+        className="w-full py-12 md:py-24 lg:py-32 bg-background"
+      >
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="space-y-2">
+              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-muted-foreground">
+                A Orde
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                O consello meigo
+              </h2>
+              <p className="max-w-[900px] text-muted-foreground md:text-base/relaxed lg:text-xl/relaxed ">
+                Detrás da maxia, hai mans que traballan sen descanso para manter vivo o espírito das Meigas.
+              </p>
+            </div>
+          </div>
+          <div className="mx-auto max-w-5xl py-6 lg:py-12">
+            <ul className="flex flex-row justify-evenly gap-16 flex-wrap">
+              <li className="flex flex-col gap-4 items-center justify-center w-64">
+                <Sparkles />
+                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Presidenta</h2>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Raquel Soilán Fernández</h3>
+              </li>
+              <li className="flex flex-col gap-4 items-center justify-center w-64">
+                <Sparkles />
+                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Vicepresidenta</h2>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Paula Carreira García</h3>
+              </li>
+              <li className="flex flex-col gap-4 items-center justify-center w-64">
+                <Sparkles />
+                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Secretaria</h2>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Alba Franco Cal</h3>
+              </li>
+              <li className="flex flex-col gap-4 items-center justify-center w-64">
+                <Sparkles />
+                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Tesoureiro</h2>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Alberto Vilariño Fernández</h3>
+              </li>
+              <li className="flex flex-col gap-4 items-center justify-center w-64">
+                <Sparkles />
+                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Vogal</h2>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Sara Fernández Barros</h3>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-wrap gap-4 justify-center mt-8">
+            <DocumentCard document={rules} />
+          </div>
+        </div>
+      </section >
     </>
   );
 }
