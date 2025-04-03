@@ -131,3 +131,15 @@ export const GEAR_GRAPHQL_FIELDS = `
     }
   }
 `;
+
+export const PLAN_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  name
+  title
+  perks
+  price
+  featured
+  order
+`;

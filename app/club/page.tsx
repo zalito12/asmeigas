@@ -25,47 +25,11 @@ import {
 } from 'lucide-react';
 import GearList from './gear-list';
 import { draftMode } from 'next/headers';
-import { getGear, getHomePage, getPage } from '@/lib/contentful/api';
+import { getGear, getHomePage, getPage, getPlans } from '@/lib/contentful/api';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
 }
-
-const tiers = [
-  {
-    title: 'Acólito',
-    price: '60€',
-    freq: '',
-    description: 'Únete al club das Meigas',
-    benefits: ['Entrenamientos', 'Competiciones', 'Acceso a piscina'],
-  },
-  {
-    title: 'Meiga',
-    price: '135€',
-    freq: '',
-    description: 'Fai maxia con nos',
-    benefits: [
-      'Todas las ventajas del acólito',
-      'Gorro e bañador',
-      'Camiseta',
-      'Sudadera',
-    ],
-    popular: true,
-  },
-  {
-    title: 'Adepta',
-    price: '100€',
-    freq: '',
-    description: 'Sinte as cores',
-    benefits: [
-      'Gorro e bañador',
-      'Camiseta',
-      'Sudadera',
-      'Nome nos seguidores',
-    ],
-    donation: false,
-  },
-];
 
 export type Gear = {
   label: string;
@@ -76,10 +40,20 @@ export type Gear = {
   imagesCollection?: { items?: { url: string; title: string }[] };
 };
 
+export interface PlanModel {
+  name: string;
+  title: string;
+  perks: string[];
+  price: number;
+  featured: boolean;
+  order: number;
+}
+
 export default async function ClubPage() {
   const { isEnabled } = draftMode();
   const gearList = (await getGear(isEnabled)) as Gear[];
-  const page = (await getPage(pathname()));
+  // const page = (await getPage(pathname(), isEnabled));
+  const plans = (await getPlans(isEnabled)) as PlanModel[];
 
   return (
     <>
@@ -187,17 +161,17 @@ export default async function ClubPage() {
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl justify-center items-stretch gap-6 py-6 lg:py-12 lg:grid-cols-3">
-            {tiers.map((tier, index) => (
+            {plans.map((plan, index) => (
               <div
                 key={index}
-                className={`px-4 min-w-[300px] ${tier.popular ? 'scale-110 my-6 lg:my-0' : ''
+                className={`px-4 min-w-[300px] ${plan.featured ? 'scale-110 my-6 lg:my-0' : ''
                   }`}
               >
                 <Card
                   className={`h-full flex flex-col relative text-primary-foreground 
-                    ${tier.popular ? 'border-muted-foreground shadow-lg' : ''}`}
+                    ${plan.featured ? 'border-muted-foreground shadow-lg' : ''}`}
                 >
-                  {tier.popular && (
+                  {plan.featured && (
                     <div className="absolute top-0 right-0 bg-muted-foreground text-primary py-0.5 px-2 rounded-bl-[1rem] rounded-tr-xl flex items-center">
                       <Sparkles className="w-4 h-4" />
                       <span className="ml-1 font-sans font-semibold">
@@ -206,31 +180,26 @@ export default async function ClubPage() {
                     </div>
                   )}
                   <CardHeader className="text-center">
-                    <CardTitle>{tier.title}</CardTitle>
-                    <CardDescription>{tier.description}</CardDescription>
+                    <CardTitle>{plan.name}</CardTitle>
+                    <CardDescription>{plan.title}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-grow text-center mt-2">
                     <div className="flex items-center justify-center gap-x-2">
-                      <span className="text-5xl font-bold">{tier.price}</span>
-                      {tier.freq && (
-                        <span className="text-sm font-normal">{tier.freq}</span>
-                      )}
+                      <span className="text-5xl font-bold">{plan.price}€</span>
+                      {/* {plan.freq && ( */}
+                      {/*   <span className="text-sm font-normal">{plan.freq}</span> */}
+                      {/* )} */}
                     </div>
                     <ul className="mt-6 space-y-2">
-                      {tier.benefits.map((benefit, benefitIndex) => (
+                      {plan.perks.map((perk, perkIndex) => (
                         <li
-                          key={benefitIndex}
+                          key={perkIndex}
                           className="flex items-center text-start"
                         >
                           <div className="mr-2 shrink-0">
-                            {tier.donation && (
-                              <HeartHandshake className="w-4 h-4 text-red-500" />
-                            )}
-                            {!tier.donation && (
-                              <Check className="w-4 h-4 text-green-500" />
-                            )}
+                            <Check className="w-4 h-4 text-green-500" />
                           </div>
-                          <div className="">{benefit}</div>
+                          <div className="">{perk}</div>
                         </li>
                       ))}
                     </ul>

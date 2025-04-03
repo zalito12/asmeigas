@@ -19,7 +19,7 @@ export default function GearImages({ selected }: GearImagesProps) {
           src={image.url}
           width={300}
           height={300}
-          className="w-auto h-72 object-cover"
+          className="w-auto h-72 object-contain"
         />
       ))}
     </div>
