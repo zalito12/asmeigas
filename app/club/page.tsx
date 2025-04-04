@@ -209,7 +209,7 @@ export default async function ClubPage() {
                     </ul>
                   </CardContent>
                   <div className="p-6 pt-0">
-                    <Button className="w-full">Quero isto!</Button>
+                    <a href="mailto:info@asmeigas.es"><Button className="w-full">Quero isto!</Button></a>
                   </div>
                 </Card>
               </div>
@@ -269,7 +269,7 @@ export default async function ClubPage() {
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm text-muted-foreground">
-                Os hábitos
+                Equipación
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Estas son as nosas cores
@@ -292,7 +292,7 @@ export default async function ClubPage() {
           <div className="flex flex-col items-center justify-center text-center">
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-muted-foreground">
-                A Orde
+                Xunta Directiva
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 O consello meigo

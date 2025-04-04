@@ -27,7 +27,26 @@ export const metadata: Metadata = {
     template: '%s',
     default: 'CN As Meigas',
   },
-  description: 'Club de Natación As Meigas'
+  description: 'Club de Natación As Meigas',
+  authors: { url: 'admin@asmeigas.es', name: 'Gonzalo García' },
+  openGraph: {
+    url: 'https://asmeigas.es',
+    title: { template: '%s', default: 'CN As Meigas' },
+    description: 'CLub de Natación As Meigas',
+    type: 'website',
+    images: 'https://asmeigas.es/logo-big.png',
+    locale: 'gl_ES',
+    siteName: 'CN As Meigas'
+  },
+  icons: 'https://asmeigas.es/favicon.ico',
+  keywords: ['natación', 'Lugo', 'nadar', 'club natación'],
+  twitter: {
+    title: { template: '%s', default: 'CN As Meigas' },
+    description: 'Club de Natación As Meigas',
+    images: 'https://asmeigas.es/logo-big.png',
+    // site: 'twitter url',
+    card: 'summary_large_image',
+  }
 }
 
 export default async function RootLayout({

@@ -25,15 +25,21 @@ export async function generateMetadata(
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
   const images = event.image?.url
-    ? [event.image.url, ...previousImages]
+    ? [event.image.url]
     : previousImages;
 
   return {
-    title: `CN As Meigas | ${event.title}`,
-    description: event.summary,
+    title: `${event.title} | CN As Meigas`,
+    description: event.title,
     openGraph: {
+      type: 'article',
       images: images,
+      authors: 'CN Meigas',
     },
+    twitter: {
+      description: event.title,
+      images: images,
+    }
   };
 }
 
