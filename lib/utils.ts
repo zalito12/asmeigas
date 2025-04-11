@@ -8,6 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export async function getPageMetadata(pathname: string): Promise<Metadata> {
+  const url = `https://asmeigas.es${pathname}`;
+
   const pages = await getPages();
   const page =
     pages
@@ -18,6 +20,25 @@ export async function getPageMetadata(pathname: string): Promise<Metadata> {
 
   return {
     title: page?.seoTitle,
-    description: page?.seoDescription
+    description: page?.seoDescription,
+    authors: { url: 'admin@asmeigas.es', name: 'Gonzalo García' },
+    openGraph: {
+      url,
+      title: page?.seoTitle,
+      description: page?.seoDescription,
+      type: 'website',
+      images: 'https://asmeigas.es/logo-big.png',
+      locale: 'gl_ES',
+      siteName: 'CN As Meigas'
+    },
+    icons: 'https://asmeigas.es/favicon.ico',
+    keywords: ['natación', 'Lugo', 'nadar', 'club natación'],
+    twitter: {
+      title: page?.seoTitle,
+      description: page?.seoDescription,
+      images: 'https://asmeigas.es/logo-big.png',
+      // site: 'twitter url',
+      card: 'summary_large_image',
+    }
   };
 }

@@ -44,6 +44,7 @@ export const PAGES_GRAPHQL_FIELDS = `
   order
   seoTitle
   seoDescription
+  content { json }
 `;
 
 export const BLOG_ITEM_GRAPHQL_FIELDS = `
@@ -108,5 +109,48 @@ export const EVENT_GRAPHQL_FIELDS = `
       url
       size
     }
+  }
+`;
+
+export const GEAR_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  label
+  icono {
+    url
+    title
+  }
+  name
+  description
+  price
+  imagesCollection(limit: 10) {
+    items {
+      url
+      title
+    }
+  }
+`;
+
+export const PLAN_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  name
+  title
+  perks
+  price
+  featured
+  order
+`;
+
+export const ASSET_GRAPHQL_FIELDS = `
+    sys {
+      id
+    }
+    title
+    description
+    url
+    size
   }
 `;
