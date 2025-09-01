@@ -5,6 +5,7 @@ import { Event } from '@/types/contentful';
 import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
+import { CalendarDaysIcon } from 'lucide-react';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
@@ -25,6 +26,13 @@ export default async function EventsPage() {
             </p>
           </div>
         </div>
+        {events?.length === 0 && (
+          <div className="text-center flex flex-col gap-2 items-center justify-center w-full mt-12">
+            <CalendarDaysIcon className="w-8 h-8 text-muted-foreground mr-2" />
+            <span>Actualmente non hai eventos programados.</span>
+            <span>Segue atento e prepara a túa toalla para as próximas actividades do Club As Meigas!</span>
+          </div>
+        )}
         <div className="container px-4 md:px-6 py-12 flex justify-center">
           <div className="grid gap-8 max-w-3xl w-full">
             {events.map((event: Event) => (

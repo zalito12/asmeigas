@@ -6,6 +6,7 @@ import { Event, Sponsor, Testimonial } from '@/types/contentful';
 import { EventItem } from '../landing/event-item';
 import { SponsorCard } from './sponsor-card';
 import SparklesText from '../ui/sparkles-text';
+import { CalendarDaysIcon } from 'lucide-react';
 
 export interface LandingPageProps {
   homePage: any;
@@ -151,6 +152,13 @@ export function LandingPage(props: LandingPageProps) {
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             />
             <div className="flex flex-col justify-center space-y-4">
+              {events?.length === 0 && (
+                <div className="text-center flex flex-col gap-2 items-center justify-center w-full">
+                  <CalendarDaysIcon className="w-8 h-8 text-muted-foreground mr-2" />
+                  <span>Actualmente non hai eventos programados.</span>
+                  <span>Segue atento e prepara a túa toalla para as próximas actividades do Club As Meigas!</span>
+                </div>
+              )}
               <ul className="grid gap-6">
                 {events?.length > 0 &&
                   events.map((event: Event) => (
