@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
@@ -16,7 +15,6 @@ import { Button } from '@/components/ui/button';
 import {
   Check,
   HeartHandshake,
-  Shirt,
   Smile,
   Sparkles,
   Trophy,
@@ -25,8 +23,7 @@ import {
 } from 'lucide-react';
 import GearList from './gear-list';
 import { draftMode } from 'next/headers';
-import { getGear, getHomePage, getPage, getPlans, getRules } from '@/lib/contentful/api';
-import SparklesText from '@/components/ui/sparkles-text';
+import { getGear, getPlans, getRules } from '@/lib/contentful/api';
 import { DocumentCard } from '@/components/component/document-card';
 import { Document } from '@/types/contentful';
 
@@ -312,7 +309,7 @@ export default async function ClubPage() {
               <li className="flex flex-col gap-4 items-center justify-center w-64">
                 <Sparkles />
                 <h2 className="inline-flex text-3xl font-bold tracking-tighter">Vicepresidenta</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Paula Carreira García</h3>
+                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Sabela Ben Cillero</h3>
               </li>
               <li className="flex flex-col gap-4 items-center justify-center w-64">
                 <Sparkles />
