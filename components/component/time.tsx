@@ -12,17 +12,14 @@ export interface TimeProps {
 const formatter = buildFormatter(strings)
 
 export function Time(props: TimeProps) {
-  const { datetime,  dayTreshold = 60 } = props
+  const { datetime, dayTreshold = 60 } = props
   const date = new Date(datetime)
   const now = new Date()
-  const diffDays = Math.floor((date.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
   const formattedDate = date.toLocaleDateString('gl-ES', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
   });
 
   return (
