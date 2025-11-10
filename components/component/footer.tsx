@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
         <div>
           <Image
-            src="/deporte_galego_w128.jpg"
+            src="/logo_deporte_galego.png"
             width={128}
             height={0}
             alt="Deporte Galego"
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
         <div>
           <Image
-            src="/xunta_galicia_white_w128.png"
+            src="/logo_xunta_galicia.png"
             width={128}
             height={0}
             alt="Xunta de Galicia"
@@ -41,7 +41,23 @@ export default function Footer() {
         </div>
         <div>
           <Image
-            src="/non_w128.jpg"
+            src="/logo_non_violencia.png"
+            width={128}
+            height={0}
+            alt="Non á viloencia de xénero"
+          />
+        </div>
+        <div>
+          <Image
+            src="/logo_concello_lugo.png"
+            width={128}
+            height={0}
+            alt="Xunta de Galicia"
+          />
+        </div>
+        <div>
+          <Image
+            src="/logo_deportes_lugo.png"
             width={128}
             height={0}
             alt="Non á viloencia de xénero"
