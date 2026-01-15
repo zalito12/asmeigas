@@ -4,6 +4,10 @@ export interface ContentfulImage {
   width?: number;
   height?: number;
 }
+export interface BlogPostPage {
+  total: number;
+  posts: BlogPost[];
+}
 export interface BlogPost {
   sys: {
     id: string;
