@@ -144,6 +144,15 @@ export const PLAN_GRAPHQL_FIELDS = `
   order
 `;
 
+export const BOARD_MEMBER_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  name
+  role
+  order
+`;
+
 export const ASSET_GRAPHQL_FIELDS = `
     sys {
       id

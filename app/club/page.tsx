@@ -23,9 +23,14 @@ import {
 } from 'lucide-react';
 import GearList from './gear-list';
 import { draftMode } from 'next/headers';
-import { getGear, getPlans, getRules } from '@/lib/contentful/api';
+import {
+  getBoardMembers,
+  getGear,
+  getPlans,
+  getRules,
+} from '@/lib/contentful/api';
 import { DocumentCard } from '@/components/component/document-card';
-import { Document } from '@/types/contentful';
+import { BoardMember, Document } from '@/types/contentful';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPageMetadata(pathname());
@@ -51,10 +56,13 @@ export interface PlanModel {
 
 export default async function ClubPage() {
   const { isEnabled } = draftMode();
-  const gearList = (await getGear(isEnabled)) as Gear[];
+  const [gearList, plans, rules, boardMembers] = (await Promise.all([
+    getGear(isEnabled),
+    getPlans(isEnabled),
+    getRules(isEnabled),
+    getBoardMembers(isEnabled),
+  ])) as [Gear[], PlanModel[], Document, BoardMember[]];
   // const page = (await getPage(pathname(), isEnabled));
-  const plans = (await getPlans(isEnabled)) as PlanModel[];
-  const rules = (await getRules(isEnabled)) as Document;
 
   return (
     <>
@@ -301,31 +309,20 @@ export default async function ClubPage() {
           </div>
           <div className="mx-auto max-w-5xl py-6 lg:py-12">
             <ul className="flex flex-row justify-evenly gap-16 flex-wrap">
-              <li className="flex flex-col gap-4 items-center justify-center w-64">
-                <Sparkles />
-                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Presidenta</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Raquel Soilán Fernández</h3>
-              </li>
-              <li className="flex flex-col gap-4 items-center justify-center w-64">
-                <Sparkles />
-                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Vicepresidenta</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Sabela Ben Cillero</h3>
-              </li>
-              <li className="flex flex-col gap-4 items-center justify-center w-64">
-                <Sparkles />
-                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Secretaria</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Alba Franco Cal</h3>
-              </li>
-              <li className="flex flex-col gap-4 items-center justify-center w-64">
-                <Sparkles />
-                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Tesoureiro</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Alberto Vilariño Fernández</h3>
-              </li>
-              <li className="flex flex-col gap-4 items-center justify-center w-64">
-                <Sparkles />
-                <h2 className="inline-flex text-3xl font-bold tracking-tighter">Vogal</h2>
-                <h3 className="text-xl font-semibold leading-none tracking-tight text-center">Sara Fernández Barros</h3>
-              </li>
+              {boardMembers.map((member) => (
+                <li
+                  key={member.sys.id}
+                  className="flex flex-col gap-4 items-center justify-center w-64"
+                >
+                  <Sparkles />
+                  <h2 className="inline-flex text-3xl font-bold tracking-tighter">
+                    {member.role}
+                  </h2>
+                  <h3 className="text-xl font-semibold leading-none tracking-tight text-center">
+                    {member.name}
+                  </h3>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="flex flex-wrap gap-4 justify-center mt-8">
