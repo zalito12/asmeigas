@@ -51,3 +51,12 @@ export interface Sponsor {
   link: string;
   logo: ContentfulImage;
 }
+
+export interface BoardMember {
+  sys: {
+    id: string;
+  };
+  name: string;
+  role: string;
+  order: number;
+}
