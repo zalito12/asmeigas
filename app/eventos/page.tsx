@@ -2,17 +2,16 @@ import { getNextEvents } from '@/lib/contentful/api';
 import { draftMode } from 'next/headers';
 import EventCard from './event-card';
 import { Event } from '@/types/contentful';
-import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
 import { CalendarDaysIcon } from 'lucide-react';
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getPageMetadata(pathname());
+  return getPageMetadata('/eventos');
 }
 
 export default async function EventsPage() {
-  const { isEnabled } = draftMode();
+  const { isEnabled } = await draftMode();
   const events = await getNextEvents(10, isEnabled);
   return (
     <section className="w-full py-12 md:py-24 bg-background">

@@ -10,11 +10,11 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import Link from 'next/link';
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 const getPost = async (slug: string) => {
-  const { isEnabled } = draftMode();
+  const { isEnabled } = await draftMode();
   return (await getBlogPost(slug, isEnabled)) as BlogPost;
 };
 
@@ -22,7 +22,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -47,10 +48,9 @@ export async function generateMetadata(
 
 export default async function BlogEntry({
   params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await getPost(params.slug);
+}: Props) {
+  const { slug } = await params;
+  const post = await getPost(slug);
   //console.log(post);
   if (!post) {
     notFound();
