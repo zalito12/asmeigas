@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   }
 
   body.tags.forEach((tag: string) => {
-    revalidateTag(tag);
+    revalidateTag(tag, "max");
   });
 
   return NextResponse.json({ revalidated: true, now: Date.now() });

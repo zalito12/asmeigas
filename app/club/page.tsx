@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
 import Polaroid from '@/components/component/polaroid';
@@ -33,7 +32,7 @@ import { DocumentCard } from '@/components/component/document-card';
 import { BoardMember, Document } from '@/types/contentful';
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getPageMetadata(pathname());
+  return getPageMetadata('/club');
 }
 
 export type Gear = {
@@ -55,7 +54,7 @@ export interface PlanModel {
 }
 
 export default async function ClubPage() {
-  const { isEnabled } = draftMode();
+  const { isEnabled } = await draftMode();
   const [gearList, plans, rules, boardMembers] = (await Promise.all([
     getGear(isEnabled),
     getPlans(isEnabled),

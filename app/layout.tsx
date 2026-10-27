@@ -2,7 +2,6 @@ import { Bricolage_Grotesque } from 'next/font/google'
 import { Space_Mono } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import '../styles/globals.css'
-import Link from 'next/link'
 import Header from '@/components/component/header'
 import { draftMode } from 'next/headers'
 import { getPages } from '@/lib/contentful/api'
@@ -54,7 +53,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled } = draftMode();
+  const { isEnabled } = await draftMode();
   const pages = await getPages(isEnabled);
   return (
     <html lang="gl">

@@ -5,22 +5,22 @@ import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { notFound } from 'next/navigation';
 import renderOptions from '@/lib/contentful/render-options';
-import { Document, Event } from '@/types/contentful';
+import { Event } from '@/types/contentful';
 import { CalendarDaysIcon } from 'lucide-react';
-import { DocumentCard } from '@/components/component/document-card';
 import type { Metadata, ResolvingMetadata } from 'next';
 import SectionMap from '../section-map';
 import SectionDocuments from '../section-documents';
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const event = (await getEvent(params.slug)) as Event;
+  const { slug } = await params;
+  const event = (await getEvent(slug)) as Event;
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -45,11 +45,10 @@ export async function generateMetadata(
 
 export default async function EventEntry({
   params,
-}: {
-  params: { slug: string };
-}) {
-  const { isEnabled } = draftMode();
-  const event = (await getEvent(params.slug, isEnabled)) as Event;
+}: Props) {
+  const { slug } = await params;
+  const { isEnabled } = await draftMode();
+  const event = (await getEvent(slug, isEnabled)) as Event;
 
   if (!event) {
     notFound();

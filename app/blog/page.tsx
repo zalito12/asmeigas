@@ -2,20 +2,25 @@ import { draftMode } from 'next/headers';
 import BlogItem from './blog-item'
 import { getBlogPosts } from '@/lib/contentful/api';
 import { BlogPostPage } from '@/types/contentful';
-import { pathname } from 'next-extra/pathname';
 import { Metadata } from 'next';
 import { getPageMetadata } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Link from "next/link"
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getPageMetadata(pathname());
+  return getPageMetadata('/blog');
 }
 const pageSize = 6;
 
-export default async function BlogPage({ searchParams }: any) {
-  const { isEnabled } = draftMode();
-  const page = Number(searchParams?.page ?? 1);
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const { isEnabled } = await draftMode();
+  const { page: pageParam } = await searchParams;
+  const rawPage = Array.isArray(pageParam) ? pageParam[0] : pageParam;
+  const page = Math.max(1, Number(rawPage ?? 1) || 1);
   const skip = (page - 1) * pageSize;
   const data = await getBlogPosts(pageSize, skip,isEnabled ) as BlogPostPage;
 
@@ -47,7 +52,7 @@ export default async function BlogPage({ searchParams }: any) {
         <div className="mx-auto grid max-w-5xl items-center grid-cols-2 gap-6 lg:gap-12">
           {page > 1 && 
             <Link
-              href={pathname() + (page > 2 ? `/?page=${page - 1}` : '')}
+              href={page > 2 ? `/blog?page=${page - 1}` : '/blog'}
               prefetch={false}
             >
               <Button variant="outline" className="w-full" >&lt; Novas</Button>
@@ -56,7 +61,7 @@ export default async function BlogPage({ searchParams }: any) {
           {page < totalPages && 
             <Link
               className="w-full col-start-2" 
-              href={`${pathname()}/?page=${page + 1}`}
+              href={`/blog?page=${page + 1}`}
               prefetch={false}
             >
               <Button variant="outline" className="w-full" >Antigas &gt;</Button>
